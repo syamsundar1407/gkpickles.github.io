@@ -648,66 +648,9 @@ ul {
     text-align: right;
 }
 
-/* Instagram Feed Section */
+/* Instagram Section */
 .instagram-section {
     text-align: center;
-}
-
-.insta-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    margin-bottom: 40px;
-}
-
-@media (min-width: 768px) {
-    .insta-grid {
-        grid-template-columns: repeat(6, 1fr);
-    }
-}
-
-.insta-item {
-    position: relative;
-    aspect-ratio: 1;
-    overflow: hidden;
-    border-radius: 12px;
-    display: block;
-    cursor: pointer;
-}
-
-.insta-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-.insta-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.insta-item:hover img {
-    transform: scale(1.1);
-}
-
-.insta-item:hover .insta-overlay {
-    opacity: 1;
-}
-
-.insta-likes {
-    color: white;
-    font-size: 1.2rem;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 5px;
 }
 
 .btn-instagram {
