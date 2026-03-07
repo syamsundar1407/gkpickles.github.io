@@ -77,16 +77,55 @@ ul {
     100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
 }
 
+/* Announcement Bar */
+.announcement-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(135deg, var(--primary-color), #bf360c);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.95rem;
+    font-weight: 600;
+    z-index: 1001;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 10px rgba(230, 81, 0, 0.3);
+    transition: transform var(--transition-speed);
+}
+
+.close-announcement {
+    position: absolute;
+    right: 20px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: opacity var(--transition-speed);
+}
+.close-announcement:hover {
+    opacity: 0.8;
+}
+
 /* Navigation */
 .navbar {
     position: fixed;
-    top: 0;
+    top: 40px;
     width: 100%;
     z-index: 1000;
     background: rgba(15, 14, 14, 0.85);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     transition: all var(--transition-speed);
+}
+
+.navbar.scrolled, .navbar.no-announcement {
+    top: 0;
 }
 
 .nav-container {
@@ -202,6 +241,7 @@ ul {
     margin-bottom: 24px;
     background: linear-gradient(135deg, #ffffff 0%, #aaaaaa 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -409,7 +449,6 @@ ul {
     transition: all var(--transition-speed);
     border: 1px solid rgba(255,255,255,0.05);
     position: relative;
-    group: hover;
 }
 
 .product-card:hover {
@@ -535,7 +574,7 @@ ul {
 }
 
 /* Features Section */
-.features-section, .reviews-section {
+.features-section, .reviews-section, .instagram-section {
     padding: 100px 5%;
     max-width: 1400px;
     margin: 0 auto;
@@ -607,6 +646,83 @@ ul {
     color: var(--primary-color);
     font-weight: 600;
     text-align: right;
+}
+
+/* Instagram Feed Section */
+.instagram-section {
+    text-align: center;
+}
+
+.insta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+@media (min-width: 768px) {
+    .insta-grid {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+.insta-item {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 12px;
+    display: block;
+    cursor: pointer;
+}
+
+.insta-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.insta-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.insta-item:hover img {
+    transform: scale(1.1);
+}
+
+.insta-item:hover .insta-overlay {
+    opacity: 1;
+}
+
+.insta-likes {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-instagram {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    box-shadow: 0 10px 20px rgba(220, 39, 67, 0.3);
+    display: inline-flex;
+    align-items: center;
+    border: none;
+    color: white;
+}
+
+.btn-instagram:hover {
+    box-shadow: 0 15px 25px rgba(220, 39, 67, 0.4);
+    transform: translateY(-3px);
+    color: white;
 }
 
 /* WhatsApp FAB */
@@ -831,7 +947,7 @@ footer {
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr;
     gap: 40px;
     margin-bottom: 40px;
 }
@@ -847,9 +963,33 @@ footer {
     max-width: 400px;
 }
 
-.footer-links h4 {
+.footer-links h4, .footer-social h4 {
     margin-bottom: 20px;
     font-size: 1.2rem;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    transition: all var(--transition-speed);
+}
+
+.social-icons a:hover {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: white;
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 10px 20px rgba(220, 39, 67, 0.4);
 }
 
 .footer-links ul li {
