@@ -225,6 +225,33 @@ function updateCartUI() {
     const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
     cartTotalPriceElement.innerText = `₹${total}`;
     
+    // Shipping Progress Logic
+    const shippingProgressContainer = document.getElementById("shipping-progress-container");
+    const shippingAmountLeft = document.getElementById("shipping-amount-left");
+    const shippingProgressBar = document.getElementById("shipping-progress-bar");
+    const shippingMessage = document.getElementById("shipping-message");
+    
+    const freeShippingThreshold = 1000;
+    
+    if (cart.length === 0) {
+        if (shippingProgressContainer) shippingProgressContainer.style.display = "none";
+    } else if (shippingProgressContainer) {
+        shippingProgressContainer.style.display = "block";
+        const difference = freeShippingThreshold - total;
+        let percentage = (total / freeShippingThreshold) * 100;
+        if (percentage > 100) percentage = 100;
+        
+        if (shippingProgressBar) shippingProgressBar.style.width = percentage + "%";
+        
+        if (total >= freeShippingThreshold) {
+            if (shippingMessage) shippingMessage.innerHTML = `🎉 Congratulations! You have unlocked <span style="color:var(--accent-color)">Free Express Shipping!</span>`;
+            if (shippingProgressBar) shippingProgressBar.style.background = "var(--whatsapp-color)";
+        } else {
+            if (shippingMessage) shippingMessage.innerHTML = `Add ₹<span id="shipping-amount-left">${difference}</span> more for <span style="color:var(--accent-color)">FREE Express Shipping!</span>📦`;
+            if (shippingProgressBar) shippingProgressBar.style.background = "var(--primary-color)";
+        }
+    }
+
     const count = cart.reduce((sum, item) => sum + item.qty, 0);
     cartCountElement.innerText = count;
     

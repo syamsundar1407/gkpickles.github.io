@@ -257,6 +257,14 @@
             <h3>Your Cart</h3>
             <button class="close-cart" id="close-cart">&times;</button>
         </div>
+        
+        <!-- Free Shipping Progress -->
+        <div class="shipping-progress-container" id="shipping-progress-container" style="display: none; padding: 15px 24px; background: rgba(0,0,0,0.2); border-bottom: 1px solid rgba(255,255,255,0.05);">
+            <p id="shipping-message" style="font-size: 0.85rem; margin-bottom: 8px; font-weight: 600;">Add ₹<span id="shipping-amount-left">...</span> more for <span style="color:var(--accent-color)">FREE Express Shipping!</span>📦</p>
+            <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;">
+                <div id="shipping-progress-bar" style="height: 100%; width: 0%; background: var(--primary-color); transition: width 0.4s ease, background 0.4s ease;"></div>
+            </div>
+        </div>
         <div class="cart-items" id="cart-items">
             <!-- Cart items injected here -->
             <div class="empty-cart-msg" id="empty-cart-msg">Your cart is empty.</div>
@@ -339,6 +347,10 @@
             </div>
         </div>
         <div class="footer-bottom">
+            <div style="margin-bottom: 15px; display: flex; justify-content: center; gap: 15px; opacity: 0.6; flex-wrap: wrap;">
+                <span>🔒 100% Secure Checkout</span>
+                <span>🌍 Worldwide Express Shipping</span>
+            </div>
             &copy; 2026 GK Pickles. All rights reserved.
         </div>
     </footer>
