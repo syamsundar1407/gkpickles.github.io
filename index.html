@@ -152,6 +152,11 @@
             <h2>Featured Pickles</h2>
             <p>Choose from our wide variety of mouth-watering pickles.</p>
             
+            <div class="search-container">
+                <input type="text" id="product-search" class="search-input" placeholder="Search for mango, chicken, garlic...">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="search-icon" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div>
+
             <div class="category-filters">
                 <button class="filter-btn active" data-filter="all">All</button>
                 <button class="filter-btn" data-filter="veg">Veg</button>
@@ -160,7 +165,11 @@
         </div>
 
         <div class="products-grid" id="products-grid">
-            <!-- Products will be injected here via JavaScript -->
+            <!-- Skeleton Loaders (will be replaced by JS) -->
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
         </div>
     </section>
 
@@ -273,6 +282,32 @@
         </div>
     </div>
 
+    <!-- FAQ Section -->
+    <section class="faq-section" id="faq">
+        <div class="section-header">
+            <h2>Frequently Asked Questions</h2>
+            <p>Everything you need to know about our pickles and shipping.</p>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item">
+                <button class="faq-question">How are they packed so they don't leak? <span class="faq-arrow">▼</span></button>
+                <div class="faq-answer"><p>We use double-sealed food-grade jars securely wrapped in bubble wrap and custom corrugated boxes to ensure 100% leak-proof international and domestic shipping.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Are there preservatives? <span class="faq-arrow">▼</span></button>
+                <div class="faq-answer"><p>No! Our pickles are 100% natural. We use premium cold-pressed oils, natural sea salt, and traditional sun-drying methods to naturally preserve the pickles for months.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">How long does international shipping take? <span class="faq-arrow">▼</span></button>
+                <div class="faq-answer"><p>To the USA, UK, Canada, Australia, and UAE, our express shipping partners typically deliver within 5 to 8 business days right to your doorstep.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">What is the shelf life? <span class="faq-arrow">▼</span></button>
+                <div class="faq-answer"><p>When stored in a dry, cool place and handled with a dry spoon, our Veg pickles easily last 6-8 months, and Non-Veg pickles last 3-4 months.</p></div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer id="contact">
         <div class="footer-content">
@@ -306,6 +341,11 @@
             &copy; 2026 GK Pickles. All rights reserved.
         </div>
     </footer>
+
+    <!-- Sticky Mobile Cart -->
+    <button class="sticky-mobile-cart" id="sticky-mobile-cart" onclick="openCart()">
+        View Cart (<span id="sticky-cart-count">0</span>)
+    </button>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <script src="script.js"></script>

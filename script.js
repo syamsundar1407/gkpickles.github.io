@@ -37,7 +37,8 @@ function loadMenu() {
                         price250, price500, price1000,
                         category: (row['Category'] || '').toLowerCase() === 'veg' ? 'veg' : 'non-veg',
                         image: row['Image URL'] || 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=600&auto=format&fit=crop',
-                        stock: row['Stock Status'] || 'In Stock'
+                        stock: row['Stock Status'] || 'In Stock',
+                        bestseller: (row['Bestseller'] || '').toLowerCase() === 'yes'
                     };
                 });
             renderProducts();
@@ -46,9 +47,20 @@ function loadMenu() {
 }
 
 // --- Render Products ---
-function renderProducts(filter = "all") {
+function renderProducts(filter = "all", searchQuery = "") {
     productsGrid.innerHTML = "";
-    const filtered = products.filter(p => filter === "all" || p.category === filter);
+    
+    // Filter by both Category & Search text
+    const filtered = products.filter(p => {
+        const matchesCategory = filter === "all" || p.category === filter;
+        const matchesSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesCategory && matchesSearch;
+    });
+    
+    if (filtered.length === 0) {
+        productsGrid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-secondary);">No pickles found matching your search!</p>`;
+        return;
+    }
     
     filtered.forEach(product => {
         const div = document.createElement("div");
@@ -59,8 +71,12 @@ function renderProducts(filter = "all") {
             `<div class="product-tag" style="background:var(--text-secondary)">OUT OF STOCK</div>` : 
             `<div class="product-tag tag-${product.category}">${product.category === 'veg' ? 'Veg' : 'Non-Veg'}</div>`;
             
+        // Render Bestseller Badge
+        let bestsellerBadge = product.bestseller ? `<div class="bestseller-badge">🔥 BESTSELLER</div>` : "";
+            
         div.innerHTML = `
             ${stockTag}
+            ${bestsellerBadge}
             <div class="product-image-wrapper">
                 <img src="${product.image}" alt="${product.title} - Authentic Homemade Pickle" class="product-img" onerror="this.src='https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=600&auto=format&fit=crop'">
             </div>
@@ -176,16 +192,19 @@ function updateCartUI() {
     
     const count = cart.reduce((sum, item) => sum + item.qty, 0);
     cartCountElement.innerText = count;
+    
+    // Update Sticky mobile cart
+    const stickyCartCount = document.getElementById("sticky-cart-count");
+    const stickyMobileCart = document.getElementById("sticky-mobile-cart");
+    if (stickyCartCount && stickyMobileCart) {
+        stickyCartCount.innerText = count;
+        if (count > 0) {
+            stickyMobileCart.classList.add('visible');
+        } else {
+            stickyMobileCart.classList.remove('visible');
+        }
+    }
 }
-
-// --- Filtering Events ---
-filterBtns.forEach(btn => {
-    btn.addEventListener("click", (e) => {
-        filterBtns.forEach(b => b.classList.remove("active"));
-        e.target.classList.add("active");
-        renderProducts(e.target.getAttribute("data-filter"));
-    });
-});
 
 // --- Drawer Events ---
 function openCart() {
@@ -277,3 +296,40 @@ window.addEventListener("scroll", () => {
 // Initial Render
 loadMenu();
 updateCartUI();
+
+// --- Search Filter Logic ---
+const searchInput = document.getElementById("product-search");
+if (searchInput) {
+    searchInput.addEventListener("input", (e) => {
+        const activeFilterBtn = document.querySelector(".filter-btn.active");
+        const activeCategory = activeFilterBtn ? activeFilterBtn.dataset.filter : "all";
+        renderProducts(activeCategory, e.target.value);
+    });
+}
+
+// Update Category Buttons to work alongside Search
+filterBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+        filterBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const filter = btn.dataset.filter;
+        const currentSearchQuery = searchInput ? searchInput.value : "";
+        renderProducts(filter, currentSearchQuery);
+    });
+});
+
+// --- FAQ Accordion Logic ---
+const faqItems = document.querySelectorAll(".faq-item");
+faqItems.forEach(item => {
+    const questionBtn = item.querySelector(".faq-question");
+    questionBtn.addEventListener("click", () => {
+        // Close others
+        faqItems.forEach(otherItem => {
+            if (otherItem !== item && otherItem.classList.contains("active")) {
+                otherItem.classList.remove("active");
+            }
+        });
+        // Toggle current
+        item.classList.toggle("active");
+    });
+});
