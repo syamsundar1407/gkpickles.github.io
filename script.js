@@ -62,7 +62,7 @@ function renderProducts(filter = "all") {
         div.innerHTML = `
             ${stockTag}
             <div class="product-image-wrapper">
-                <img src="${product.image}" alt="${product.title}" class="product-img" onerror="this.src='https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=600&auto=format&fit=crop'">
+                <img src="${product.image}" alt="${product.title} - Authentic Homemade Pickle" class="product-img" onerror="this.src='https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=600&auto=format&fit=crop'">
             </div>
             <div class="product-info">
                 <h3 class="product-title" style="font-size: 1.2rem;">${product.title}</h3>
@@ -156,7 +156,7 @@ function updateCartUI() {
             const div = document.createElement("div");
             div.className = "cart-item";
             div.innerHTML = `
-                <img src="${item.image}" class="cart-item-img" alt="${item.title}" onerror="this.src='https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=600&auto=format&fit=crop'">
+                <img src="${item.image}" class="cart-item-img" alt="GK Pickles | ${item.title}" onerror="this.src='https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=600&auto=format&fit=crop'">
                 <div class="cart-item-details">
                     <div class="cart-item-title" style="font-size: 0.95rem;">${item.title} <span style="color:var(--primary-color);">(${item.size})</span></div>
                     <div class="cart-item-price">₹${item.price} x ${item.qty}</div>
