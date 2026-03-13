@@ -1,6 +1,7 @@
 // --- State ---
 let products = [];
 let cart = [];
+let wishlist = JSON.parse(localStorage.getItem('gk_wishlist')) || [];
 
 // --- DOM Elements ---
 const productsGrid = document.getElementById("products-grid");
@@ -50,9 +51,13 @@ function loadMenu() {
 function renderProducts(filter = "all", searchQuery = "") {
     productsGrid.innerHTML = "";
     
-    // Filter by both Category & Search text
+    // Filter by Category, Wishlist & Search text
     const filtered = products.filter(p => {
-        const matchesCategory = filter === "all" || p.category === filter;
+        let matchesCategory = false;
+        if (filter === "all") matchesCategory = true;
+        else if (filter === "wishlist") matchesCategory = wishlist.includes(p.id);
+        else matchesCategory = p.category === filter;
+        
         const matchesSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase());
         return matchesCategory && matchesSearch;
     });
@@ -73,6 +78,7 @@ function renderProducts(filter = "all", searchQuery = "") {
             
         // Render Bestseller Badge
         let bestsellerBadge = product.bestseller ? `<div class="bestseller-badge">🔥 BESTSELLER</div>` : "";
+        let isWishlisted = wishlist.includes(product.id);
             
         div.innerHTML = `
             ${stockTag}
@@ -81,7 +87,12 @@ function renderProducts(filter = "all", searchQuery = "") {
                 <img src="${product.image}" alt="${product.title} - Authentic Homemade Pickle" class="product-img" onerror="this.src='https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=600&auto=format&fit=crop'">
             </div>
             <div class="product-info">
-                <h3 class="product-title" style="font-size: 1.2rem;">${product.title}</h3>
+                <div style="display: flex; justify-content: space-between; align-items: start;">
+                    <h3 class="product-title" style="font-size: 1.2rem; flex: 1;">${product.title}</h3>
+                    <button class="wishlist-btn ${isWishlisted ? 'active' : ''}" onclick="toggleWishlist(${product.id})" aria-label="Add to wishlist" style="background:none; border:none; cursor:pointer; font-size: 1.2rem; margin-left:10px; transition: transform 0.2s;">
+                        ${isWishlisted ? '❤️' : '🤍'}
+                    </button>
+                </div>
                 
                 <div style="margin-bottom: 20px;">
                     <select class="weight-select" id="weight-${product.id}" style="width: 100%; padding: 8px; border-radius: 8px; background: var(--bg-dark); color: white; border: 1px solid rgba(255,255,255,0.2); outline: none; font-family: var(--font-body); font-weight: 600;">
@@ -121,6 +132,30 @@ function renderProducts(filter = "all", searchQuery = "") {
             waLink.href = `https://wa.me/919876543210?text=` + encodeURIComponent(`Hi GK Pickles, I want to order ${product.title} (${size}) for ₹${price}`);
         });
     });
+}
+
+// --- Wishlist Logic ---
+function toggleWishlist(id) {
+    if (wishlist.includes(id)) {
+        wishlist = wishlist.filter(itemId => itemId !== id);
+    } else {
+        wishlist.push(id);
+    }
+    localStorage.setItem('gk_wishlist', JSON.stringify(wishlist));
+    updateWishlistUI();
+    
+    // Maintain current filter state
+    const activeFilterBtn = document.querySelector(".filter-btn.active");
+    const activeCategory = activeFilterBtn ? activeFilterBtn.dataset.filter : "all";
+    const currentSearchQuery = document.getElementById("product-search") ? document.getElementById("product-search").value : "";
+    renderProducts(activeCategory, currentSearchQuery);
+}
+
+function updateWishlistUI() {
+    const badge = document.getElementById("wishlist-count-badge");
+    if (badge) {
+        badge.innerText = wishlist.length;
+    }
 }
 
 // --- Cart Logic ---
@@ -294,6 +329,7 @@ window.addEventListener("scroll", () => {
 });
 
 // Initial Render
+updateWishlistUI();
 loadMenu();
 updateCartUI();
 
