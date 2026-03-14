@@ -318,75 +318,16 @@ ul {
     animation: pulse 4s infinite alternate;
 }
 
-.jar-mockup {
-    position: relative;
-    width: 260px;
-    height: 380px;
-    z-index: 1;
-    animation: float 6s ease-in-out infinite;
-    transform-style: preserve-3d;
-}
-
-.jar-lid {
-    width: 140px;
-    height: 40px;
-    background: linear-gradient(to right, #b08d57, #d4af37, #b08d57);
-    margin: 0 auto;
-    border-radius: 10px 10px 5px 5px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.4), inset 0 2px 5px rgba(255,255,255,0.4);
-}
-
-.jar-body {
-    width: 260px;
-    height: 340px;
-    background: linear-gradient(135deg, rgba(230,81,0,0.6) 0%, rgba(139,0,0,0.8) 100%);
-    border-radius: 40px 40px 20px 20px;
-    position: relative;
-    box-shadow: inset -20px -20px 40px rgba(0,0,0,0.5), inset 20px 20px 40px rgba(255,255,255,0.2), 0 20px 40px rgba(0,0,0,0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(5px);
-    overflow: hidden;
-}
-
-/* Inner pickle simulation */
-.jar-body::before {
-    content: '';
-    position: absolute;
+.hero-banner-img {
     width: 100%;
-    height: 100%;
-    background-image: radial-gradient(circle at 30% 30%, rgba(0,0,0,0.3) 10%, transparent 11%), radial-gradient(circle at 70% 60%, rgba(0,0,0,0.4) 15%, transparent 16%);
-    background-size: 60px 60px;
-    opacity: 0.3;
-}
-
-.jar-label {
-    width: 160px;
-    height: 120px;
-    background: #fdfbf7;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    color: #333;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border: 2px solid #d4af37;
-    z-index: 2;
-}
-
-.jar-label h2 {
-    font-size: 1.5rem;
-    color: #8b0000;
-    margin-bottom: 5px;
-}
-
-.jar-label p {
-    font-family: var(--font-body);
-    font-size: 0.7rem;
-    letter-spacing: 2px;
-    font-weight: 600;
+    max-width: 500px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    animation: float 6s ease-in-out infinite;
+    z-index: 1;
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.1);
 }
 
 /* Products Section */
