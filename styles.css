@@ -190,6 +190,22 @@ ul {
     width: 100%;
 }
 
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-search {
+    margin: 0;
+    max-width: 250px;
+}
+
+.nav-search .search-input {
+    padding: 10px 40px 10px 20px;
+    font-size: 0.95rem;
+}
+
 .cart-icon {
     position: relative;
     cursor: pointer;
@@ -1068,6 +1084,13 @@ footer {
 @media (max-width: 600px) {
     .nav-links {
         display: none;
+    }
+    .nav-search {
+        max-width: 140px;
+    }
+    .nav-search .search-input {
+        padding: 8px 30px 8px 12px;
+        font-size: 0.85rem;
     }
     .hero h1 {
         font-size: 2.5rem;
