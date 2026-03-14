@@ -21,17 +21,17 @@ const confirmOrderBtn = document.getElementById("confirm-order");
 
 // --- Fetch & Parse CSV Data ---
 function loadMenu() {
-    Papa.parse("https://docs.google.com/spreadsheets/d/e/2PACX-1vTuVY-Ir7cAMOUWVYzsmlw4_Z-yXUY6BB3jCb9YUrQW3qGC-4nj-7ZZ_wh0qbaAjDCNxQG6nmu2V0Kx/pub?gid=695715523&single=true&output=csv", {
+    Papa.parse("menu.csv", {
         download: true,
         header: true,
-        complete: function(results) {
+        complete: function (results) {
             products = results.data
                 .filter(row => row['Product Name']) // Skip empty rows
                 .map((row, index) => {
                     const price250 = parseInt((row['250g Price'] || '0').replace(/\D/g, ''));
                     const price500 = parseInt((row['500g Price'] || '0').replace(/\D/g, ''));
                     const price1000 = parseInt((row['1KG Price'] || '0').replace(/\D/g, ''));
-                    
+
                     return {
                         id: index + 1,
                         title: row['Product Name'],
@@ -50,36 +50,36 @@ function loadMenu() {
 // --- Render Products ---
 function renderProducts(filter = "all", searchQuery = "") {
     productsGrid.innerHTML = "";
-    
+
     // Filter by Category, Wishlist & Search text
     const filtered = products.filter(p => {
         let matchesCategory = false;
         if (filter === "all") matchesCategory = true;
         else if (filter === "wishlist") matchesCategory = wishlist.includes(p.id);
         else matchesCategory = p.category === filter;
-        
+
         const matchesSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase());
         return matchesCategory && matchesSearch;
     });
-    
+
     if (filtered.length === 0) {
         productsGrid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-secondary);">No pickles found matching your search!</p>`;
         return;
     }
-    
+
     filtered.forEach(product => {
         const div = document.createElement("div");
         div.className = "product-card";
-        
+
         // Show OUT OF STOCK badge if needed
-        let stockTag = product.stock.toLowerCase().includes('out') ? 
-            `<div class="product-tag" style="background:var(--text-secondary)">OUT OF STOCK</div>` : 
+        let stockTag = product.stock.toLowerCase().includes('out') ?
+            `<div class="product-tag" style="background:var(--text-secondary)">OUT OF STOCK</div>` :
             `<div class="product-tag tag-${product.category}">${product.category === 'veg' ? 'Veg' : 'Non-Veg'}</div>`;
-            
+
         // Render Bestseller Badge
         let bestsellerBadge = product.bestseller ? `<div class="bestseller-badge">🔥 BESTSELLER</div>` : "";
         let isWishlisted = wishlist.includes(product.id);
-            
+
         div.innerHTML = `
             ${stockTag}
             ${bestsellerBadge}
@@ -120,12 +120,12 @@ function renderProducts(filter = "all", searchQuery = "") {
             </div>
         `;
         productsGrid.appendChild(div);
-        
+
         // Dynamic price & Link update when select changes
         const selectEl = div.querySelector(`#weight-${product.id}`);
         const priceDisplay = div.querySelector(`.product-price`);
         const waLink = div.querySelector(`.wa-link`);
-        
+
         selectEl.addEventListener('change', (e) => {
             const [size, price] = e.target.value.split('|');
             priceDisplay.innerText = `₹${price}`;
@@ -143,7 +143,7 @@ function toggleWishlist(id) {
     }
     localStorage.setItem('gk_wishlist', JSON.stringify(wishlist));
     updateWishlistUI();
-    
+
     // Maintain current filter state
     const activeFilterBtn = document.querySelector(".filter-btn.active");
     const activeCategory = activeFilterBtn ? activeFilterBtn.dataset.filter : "all";
@@ -162,12 +162,12 @@ function updateWishlistUI() {
 function addToCart(id) {
     const product = products.find(p => p.id === id);
     if (!product) return;
-    
+
     const select = document.getElementById("weight-" + id);
     const [size, priceStr] = select.value.split("|");
     const price = parseInt(priceStr);
     const cartItemId = id + "-" + size;
-    
+
     const existingItem = cart.find(item => item.cartItemId === cartItemId);
     if (existingItem) {
         existingItem.qty += 1;
@@ -175,7 +175,7 @@ function addToCart(id) {
         cart.push({ ...product, cartItemId, size, price, qty: 1 });
     }
     updateCartUI();
-    
+
     // Tiny animation on cart icon
     cartIcon.style.transform = "scale(1.2)";
     setTimeout(() => cartIcon.style.transform = "scale(1)", 200);
@@ -194,7 +194,7 @@ function updateQty(cartItemId, change) {
 
 function updateCartUI() {
     cartItemsContainer.innerHTML = "";
-    
+
     if (cart.length === 0) {
         emptyCartMsg.style.display = "block";
         checkoutBtn.style.display = "none";
@@ -202,7 +202,7 @@ function updateCartUI() {
     } else {
         emptyCartMsg.style.display = "none";
         checkoutBtn.style.display = "block";
-        
+
         cart.forEach(item => {
             const div = document.createElement("div");
             div.className = "cart-item";
@@ -224,15 +224,15 @@ function updateCartUI() {
 
     const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
     cartTotalPriceElement.innerText = `₹${total}`;
-    
+
     // Shipping Progress Logic
     const shippingProgressContainer = document.getElementById("shipping-progress-container");
     const shippingAmountLeft = document.getElementById("shipping-amount-left");
     const shippingProgressBar = document.getElementById("shipping-progress-bar");
     const shippingMessage = document.getElementById("shipping-message");
-    
+
     const freeShippingThreshold = 1000;
-    
+
     if (cart.length === 0) {
         if (shippingProgressContainer) shippingProgressContainer.style.display = "none";
     } else if (shippingProgressContainer) {
@@ -240,9 +240,9 @@ function updateCartUI() {
         const difference = freeShippingThreshold - total;
         let percentage = (total / freeShippingThreshold) * 100;
         if (percentage > 100) percentage = 100;
-        
+
         if (shippingProgressBar) shippingProgressBar.style.width = percentage + "%";
-        
+
         if (total >= freeShippingThreshold) {
             if (shippingMessage) shippingMessage.innerHTML = `🎉 Congratulations! You have unlocked <span style="color:var(--accent-color)">Free Express Shipping!</span>`;
             if (shippingProgressBar) shippingProgressBar.style.background = "var(--whatsapp-color)";
@@ -254,7 +254,7 @@ function updateCartUI() {
 
     const count = cart.reduce((sum, item) => sum + item.qty, 0);
     cartCountElement.innerText = count;
-    
+
     // Update Sticky mobile cart
     const stickyCartCount = document.getElementById("sticky-cart-count");
     const stickyMobileCart = document.getElementById("sticky-mobile-cart");
@@ -293,7 +293,7 @@ checkoutBtn.addEventListener("click", () => {
     if (cart.length === 0) return;
     checkoutBtn.style.display = "none";
     upiSection.style.display = "block";
-    
+
     // Generate UPI URL dynamically with total
     const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
     const dynamicQr = document.getElementById("dynamic-qr");
