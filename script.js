@@ -306,7 +306,14 @@ cancelPaymentBtn.addEventListener("click", () => {
 });
 
 confirmOrderBtn.addEventListener("click", () => {
-    // Show amazing visual confirmation
+    cart = [];
+    updateCartUI();
+    
+    // Show amazing visual confirmation instead of empty cart message
+    emptyCartMsg.style.display = "none";
+    upiSection.style.display = "none";
+    checkoutBtn.style.display = "none";
+    
     cartItemsContainer.innerHTML = `
         <div style="text-align:center; padding: 40px 20px;">
             <div style="font-size: 4rem; margin-bottom: 20px;">🎉</div>
@@ -314,10 +321,6 @@ confirmOrderBtn.addEventListener("click", () => {
             <p style="color: var(--text-secondary)">Your authentic GK Pickles are on their way. We'll contact you shortly for dispatch details.</p>
         </div>
     `;
-    cart = [];
-    updateCartUI();
-    upiSection.style.display = "none";
-    checkoutBtn.style.display = "none";
     cartCountElement.innerText = 0;
 });
 
