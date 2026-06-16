@@ -16,33 +16,41 @@
     <meta property="og:image" content="https://gkpickles.com/images/andhra-hero-gk-pickles.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=cart-buttons">
 </head>
-<h1 style="color:red;">TEST GK PICKLES</h1>
-</body>
 <body>
     <header class="site-header" id="top">
         <a class="brand" href="#home" aria-label="GK Pickles home">
-            <span class="brand-mark">GK</span>
+            <img class="brand-logo" src="images/gk-pickles-logo.png" alt="GK Pickles logo">
             <span>
                 <strong>GK Pickles</strong>
-                <small>Andhra Homemade</small>
+                <small>Andhra Homemade Pickles</small>
             </span>
         </a>
-        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#categories">Categories</a>
-            <a href="#order">Order</a>
-            <a href="#contact">Contact</a>
-            <a href="#login">Login</a>
-        </nav>
+        <div class="header-actions">
+            <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+                <a href="#home">Home</a>
+                <a href="#about">About Us</a>
+                <a href="#categories">Categories</a>
+                <a href="#why">Why Choose GK Pickles</a>
+                <a href="#order">Order</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <button class="cart-toggle" type="button" aria-expanded="false" aria-controls="cart-panel">
+                <span aria-hidden="true">🛒</span>
+                <span>Cart</span>
+                <strong id="cart-count">0</strong>
+            </button>
+            <form class="site-search" role="search">
+                <input id="product-search" type="search" placeholder="Search" aria-label="Search products">
+            </form>
+            <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
     </header>
 
     <main>
@@ -50,13 +58,6 @@
             <img class="hero-bg" src="images/andhra-hero-gk-pickles.png" alt="Banana leaf meal with white rice, ghee, Andhra pickle, and pickle jar">
             <div class="hero-overlay"></div>
             <div class="hero-content reveal">
-                <div class="logo-badge">
-                    <span class="brand-mark">GK</span>
-                    <span>Premium Andhra Homemade Pickles</span>
-                </div>
-                <h1>GK Pickles</h1>
-                <p class="tagline">Spicy Taste That Touches The Heart ❤️</p>
-                <p class="hero-copy">Small-batch Andhra pickles made with sun-loved ingredients, hand-roasted spices, and the old-home patience that turns every meal into comfort.</p>
                 <div class="hero-actions">
                     <a class="btn primary" href="#order">Order on WhatsApp</a>
                     <a class="btn secondary" href="#categories">Explore Categories</a>
@@ -65,11 +66,13 @@
         </section>
 
         <section class="about page-section" id="about">
-            <div class="section-kicker reveal">About GK Pickles</div>
+            <div class="section-kicker about-kicker reveal">
+                <span>About Us</span>
+            </div>
             <div class="split">
-                <div class="reveal">
-                    <h2>Traditional Andhra taste, made at home with premium care.</h2>
-                    <p>GK Pickles brings the bold spice, tangy depth, and oil-rich aroma of Andhra kitchens into carefully packed homemade batches. Every recipe is made to taste familiar, festive, and deeply satisfying with hot rice, ghee, dosa, curd rice, or snacks.</p>
+                <div class="about-copy reveal">
+                    <p><strong>GK Pickles</strong> brings the authentic taste of traditional Andhra homemade pickles to your family. Backed by over 7 years of experience in preparing homemade pickles, we are proud to share the rich flavors and traditions that have been loved by family, friends, and customers over the years.</p>
+                    <p>At GK Pickles, every batch is prepared using carefully selected ingredients, traditional recipes, and time-tested homemade methods passed down through generations. Our journey began with a passion for creating authentic Andhra pickles at home, and today we are excited to bring those same flavors to a wider audience through GK Pickles.</p>
                 </div>
                 <div class="about-card reveal">
                     <img src="images/mango_pickle.jpg" alt="Mango pickle jar">
@@ -82,80 +85,84 @@
         </section>
 
         <section class="categories page-section" id="categories">
-            <div class="section-heading reveal">
-                <span class="section-kicker">Categories</span>
-                <h2>Pick your favorite Andhra kitchen classic.</h2>
+            <div class="category-showcase reveal">
+                <div class="category-hero-card">
+                    <div>
+                        <span class="section-kicker category-kicker">Our Collection</span>
+                        <h2 class="category-heading-title">Shop by Category</h2>
+                        <p>Authentic flavors made with love, tradition, and the finest ingredients.</p>
+                    </div>
+                </div>
             </div>
-            <div class="category-grid">
-                <button class="category-card reveal active" data-category="all">
-                    <span>All Items</span>
-                    <small>Full menu</small>
-                </button>
-                <button class="category-card reveal" data-category="veg">
+            <div class="category-grid" aria-label="Product categories">
+                <button class="category-card reveal active" data-category="veg">
+                    <span class="category-icon" aria-hidden="true">&#129361;</span>
                     <span>Veg Pickles</span>
-                    <small>Avakaya, tomato, lemon</small>
+                    <small>Traditional Andhra veg pickles made with care.</small>
+                    <img class="category-photo" src="images/mango_pickle.jpg" alt="Veg pickle bowl">
+                    <span class="category-action">Explore Collection &#8594;</span>
                 </button>
                 <button class="category-card reveal" data-category="non-veg">
+                    <span class="category-icon" aria-hidden="true">&#127831;</span>
                     <span>Non-Veg Pickles</span>
-                    <small>Chicken, prawns, mutton</small>
-                </button>
-                <button class="category-card reveal" data-category="sweets">
-                    <span>Sweets</span>
-                    <small>Traditional celebrations</small>
+                    <small>Flavorful non-veg pickles packed with authentic taste.</small>
+                    <img class="category-photo" src="images/flatlay_chicken.jpg" alt="Non-veg pickle bowl">
+                    <span class="category-action">Explore Collection &#8594;</span>
                 </button>
                 <button class="category-card reveal" data-category="hots">
+                    <span class="category-icon" aria-hidden="true">&#127798;</span>
                     <span>Hots</span>
-                    <small>Crispy savory snacks</small>
+                    <small>Crispy, spicy, and fiery delights for spice lovers.</small>
+                    <img class="category-photo" src="images/flatlay_chakralu.png" alt="Spicy Andhra hots">
+                    <span class="category-action">Explore Collection &#8594;</span>
+                </button>
+                <button class="category-card reveal" data-category="sweets">
+                    <span class="category-icon" aria-hidden="true">&#127852;</span>
+                    <span>Sweets</span>
+                    <small>Traditional sweets for every celebration.</small>
+                    <img class="category-photo" src="images/flatlay_boondi_laddu.jpg" alt="Traditional sweets">
+                    <span class="category-action">Explore Collection &#8594;</span>
                 </button>
                 <button class="category-card reveal" data-category="powders">
+                    <span class="category-icon" aria-hidden="true">&#129474;</span>
                     <span>Powders</span>
-                    <small>Fresh podi blends</small>
+                    <small>Pure and natural spice powders for everyday use.</small>
+                    <img class="category-photo" src="images/flatlay_karam_podi.jpg" alt="Karam podi powder">
+                    <span class="category-action">Explore Collection &#8594;</span>
+                </button>
+                <button class="category-card reveal" data-category="combos">
+                    <span class="category-icon" aria-hidden="true">&#127873;</span>
+                    <span>Combo Packs</span>
+                    <small>Handpicked combos for every occasion.</small>
+                    <img class="category-photo" src="images/andhra-hero-gk-pickles.png" alt="GK Pickles combo pack">
+                    <span class="category-action">Explore Collection &#8594;</span>
                 </button>
             </div>
         </section>
 
-        <section class="process page-section" id="process">
-            <div class="section-heading reveal">
-                <span class="section-kicker">Homemade Process</span>
-                <h2>Slow, clean, and full of Andhra flavor.</h2>
-            </div>
-            <div class="process-steps">
-                <article class="process-step reveal">
-                    <span>01</span>
-                    <h3>Select</h3>
-                    <p>Fresh produce, quality oils, and spice-forward ingredients are chosen for texture and aroma.</p>
-                </article>
-                <article class="process-step reveal">
-                    <span>02</span>
-                    <h3>Prepare</h3>
-                    <p>Ingredients are washed, dried, chopped, roasted, and mixed using traditional home methods.</p>
-                </article>
-                <article class="process-step reveal">
-                    <span>03</span>
-                    <h3>Pack</h3>
-                    <p>Each batch is packed neatly for WhatsApp orders, with taste and freshness kept at the center.</p>
-                </article>
-            </div>
-        </section>
-
-        <section class="why page-section">
-            <div class="section-heading reveal">
-                <span class="section-kicker">Why Choose Us</span>
-                <h2>Premium homemade food, without losing the warmth.</h2>
-            </div>
-            <div class="why-grid">
-                <article class="why-card reveal">
-                    <h3>Andhra spice balance</h3>
-                    <p>Bold chilli, tang, oil, salt, and masala are balanced for a rich traditional finish.</p>
-                </article>
-                <article class="why-card reveal">
-                    <h3>Home-style batches</h3>
-                    <p>No factory feel. Just careful preparation, honest flavor, and familiar recipes.</p>
-                </article>
-                <article class="why-card reveal">
-                    <h3>WhatsApp ordering</h3>
-                    <p>Simple direct ordering, quick confirmation, and personal support for every request.</p>
-                </article>
+        <section class="why page-section" id="why">
+            <div class="why-wrap reveal">
+                <div class="section-heading">
+                    <span class="section-kicker">Why Choose GK Pickles?</span>
+                    <h2>Pure homemade Andhra taste.</h2>
+                </div>
+                <div class="why-grid">
+                    <article class="why-card" tabindex="0">
+                        <span class="why-card-icon" aria-hidden="true">&#127968;</span>
+                        <h3>Pure Homemade</h3>
+                        <p>Every batch is prepared in a homemade style with fresh ingredients, care, and the comfort of traditional family recipes.</p>
+                    </article>
+                    <article class="why-card featured" tabindex="0">
+                        <span class="why-card-icon" aria-hidden="true">&#127811;</span>
+                        <h3>No Added Colors</h3>
+                        <p>No artificial colors and no preservatives.</p>
+                    </article>
+                    <article class="why-card" tabindex="0">
+                        <span class="why-card-icon" aria-hidden="true">&#128214;</span>
+                        <h3>Authentic Andhra Taste</h3>
+                        <p>Traditional Andhra spice, tang, and homemade flavor.</p>
+                    </article>
+                </div>
             </div>
         </section>
 
@@ -167,45 +174,6 @@
             </div>
             <div class="product-grid" id="product-grid" aria-live="polite"></div>
         </section>
-
-        <section class="reviews page-section">
-            <div class="section-heading reveal">
-                <span class="section-kicker">Customer Reviews</span>
-                <h2>Meals made happier, one spoon at a time.</h2>
-            </div>
-            <div class="review-grid">
-                <article class="review-card reveal">
-                    <span>★★★★★</span>
-                    <p>"The mango pickle tastes exactly like home. Perfect with hot rice and ghee."</p>
-                    <strong>Harika R.</strong>
-                </article>
-                <article class="review-card reveal">
-                    <span>★★★★★</span>
-                    <p>"Chicken pickle is rich, spicy, and fresh. Ordering on WhatsApp was very easy."</p>
-                    <strong>Vikram P.</strong>
-                </article>
-                <article class="review-card reveal">
-                    <span>★★★★★</span>
-                    <p>"Loved the podi and sweets. Packaging was neat and the taste felt homemade."</p>
-                    <strong>Sravani K.</strong>
-                </article>
-            </div>
-        </section>
-
-        <section class="instagram page-section">
-            <div class="section-heading reveal">
-                <span class="section-kicker">Instagram</span>
-                <h2>Fresh batches, festive plates, and spicy cravings.</h2>
-            </div>
-            <div class="insta-grid">
-                <img class="reveal" src="images/flatlay_mango.jpg" alt="Mango pickle flatlay">
-                <img class="reveal" src="images/flatlay_chicken.jpg" alt="Chicken pickle flatlay">
-                <img class="reveal" src="images/flatlay_karam_podi.jpg" alt="Karam podi flatlay">
-                <img class="reveal" src="images/flatlay_karivepaku_podi.jpg" alt="Karivepaku podi flatlay">
-            </div>
-            <a class="text-link reveal" href="https://www.instagram.com/" target="_blank" rel="noopener">Follow GK Pickles on Instagram</a>
-        </section>
-
         <section class="contact page-section" id="contact">
             <div class="contact-panel reveal">
                 <div>
@@ -233,50 +201,47 @@
             </div>
         </section>
 
-        <section class="login page-section" id="login">
-            <div class="login-card reveal">
-                <span class="section-kicker">Login</span>
-                <h2>GK Pickles member login</h2>
-                <p>Use this simple member area placeholder for returning customers and future order history.</p>
-                <form>
-                    <label>
-                        Mobile number
-                        <input type="tel" placeholder="Enter mobile number">
-                    </label>
-                    <label>
-                        Password
-                        <input type="password" placeholder="Enter password">
-                    </label>
-                    <button class="btn primary" type="button">Login</button>
-                </form>
-            </div>
-        </section>
     </main>
+
+    <aside class="cart-panel" id="cart-panel" aria-label="Shopping cart" aria-hidden="true">
+        <div class="cart-panel-header">
+            <strong>Your Cart</strong>
+            <button class="cart-close" type="button" aria-label="Close cart">×</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <p class="cart-empty">Your cart is empty.</p>
+        </div>
+        <a class="btn cart-order" id="cart-order" href="#" target="_blank" rel="noopener">Order Cart on WhatsApp</a>
+    </aside>
 
     <a class="floating-whatsapp" href="https://wa.me/919440630319?text=Hi%20GK%20Pickles,%20I%20want%20to%20place%20an%20order." target="_blank" rel="noopener" aria-label="Order through WhatsApp">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35ZM12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.87 9.88ZM20.46 3.49A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.31-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89 0-3.18-1.24-6.16-3.49-8.42Z"/></svg>
     </a>
 
+    <aside class="shipping-ticker" id="shipping-ticker" aria-live="polite">
+        <div class="shipping-ticker-track">
+            <span><span aria-hidden="true">&#128666;</span> Delivery Available across India and Overseas.</span>
+            <span><span aria-hidden="true">&#128666;</span> Shipping charges Extra.</span>
+            <span><span aria-hidden="true">&#128666;</span> Delivery Available across India and Overseas.</span>
+            <span><span aria-hidden="true">&#128666;</span> Shipping charges Extra.</span>
+        </div>
+    </aside>
     <footer class="site-footer">
-        <div>
-            <a class="brand footer-brand" href="#home">
-                <span class="brand-mark">GK</span>
-                <span>
-                    <strong>GK Pickles</strong>
-                    <small>Traditional Andhra Homemade</small>
-                </span>
-            </a>
-            <p>Spicy Taste That Touches The Heart ❤️</p>
+        <div class="footer-quick-links">
+            <h2>Quick Links</h2>
+            <nav aria-label="Footer quick links">
+                <a href="#top">Search</a>
+                <a href="#order">Order</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Shipping Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Refund Policy</a>
+                <a href="#contact">Contact</a>
+                <a href="#">Blog</a>
+            </nav>
         </div>
-        <div class="footer-links">
-            <a href="#about">About</a>
-            <a href="#categories">Categories</a>
-            <a href="#order">Order</a>
-            <a href="#contact">Contact</a>
-        </div>
-        <p class="copyright">© 2026 GK Pickles. All rights reserved.</p>
+        <p class="copyright">&copy; 2026 GK Pickles. All rights reserved.</p>
     </footer>
-
-    <script src="script.js"></script>
+    <script src="script.js?v=cart-buttons"></script>
 </body>
 </html>
