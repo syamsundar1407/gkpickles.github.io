@@ -1,0 +1,7 @@
+.git/*
+.DS_Store
+*.log
+*.py
+README.md
+.gitignore
+menu.csv
